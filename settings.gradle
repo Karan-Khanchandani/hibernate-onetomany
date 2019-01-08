@@ -1,2 +1,4 @@
 rootProject.name = 'hibernate-onetomany'
+include 'src'
+include 'com.karan.hibernate.onetomany'
 
