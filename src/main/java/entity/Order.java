@@ -11,8 +11,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Entity(name = "order")
-@Table
+@Entity
+@Table(name = "order_details")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Order {
     Double totalAmount = 0.0;
     @Column(name = "currency_code")
     String currencyCode;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
     List<OrderItem> orderItems;
     @ManyToOne
     @JoinColumn(name = "person_id")

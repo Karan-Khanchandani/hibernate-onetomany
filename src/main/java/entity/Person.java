@@ -8,8 +8,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Entity(name = "person")
-@Table
+@Entity
+@Table(name = "person_info")
 public class Person {
     @Id
     @Column(name = "user_id", nullable = false)
@@ -21,6 +21,6 @@ public class Person {
     String email;
     @Column(name = "phone_number", length = 10)
     String phoneNumber;
-    @OneToMany(mappedBy = "person")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "person")
     Set<Order> orderSet;
 }

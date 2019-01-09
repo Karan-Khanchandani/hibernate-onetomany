@@ -83,11 +83,28 @@ public class MainClass {
             order2.setTotalAmount(order2.getTotalAmount() + orderItem.getPrice());
             order2.setCurrencyCode(orderItem.getCurrencyCode());
         }
-
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.getTransaction();
-            session.save(person);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            System.out.println("Started inserting the data");
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(person);
             transaction.commit();
+            System.out.println("Data inserted");
+        }catch (Exception e){
+            e.printStackTrace();
+            if(transaction != null){
+                transaction.rollback();
+            }
+        }finally {
+
+        }
+
+        try {
+            System.out.println("Started deleting the data");
+            transaction = session.beginTransaction();
+            session.delete(person);
+            transaction.commit();
+            System.out.println("Data deleted");
         }catch (Exception e){
             e.printStackTrace();
             if(transaction != null){
